@@ -23,23 +23,6 @@
             <!--<a class="nav_link" href="gallery.html">Галлерея</a>-->
             <a class="nav_link" href="login.html">Войти</a>
           </nav>
-          <script>
-            document.addEventListener("DOMContentLoaded", function () {
-              // Проверяем наличие сессионных переменных
-              var galleryLink = document.getElementById("gallery-link");
-              var loginLink = document.getElementById("login-link");
-
-              // Если пользователь авторизован, показываем элементы навигационного меню
-              if (userLoggedIn) {
-                galleryLink.style.display = "block";
-                loginLink.style.display = "none"; // скрываем ссылку на вход
-              } else {
-                // Если пользователь не авторизован, скрываем элементы навигационного меню
-                galleryLink.style.display = "none";
-                loginLink.style.display = "block"; // показываем ссылку на вход
-              }
-            });
-          </script>
         </div>
       </div>
     </header>

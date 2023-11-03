@@ -5,7 +5,7 @@ session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
-$database = "site"; // Используйте корректное название вашей базы данных
+$database = "site";
 
 $conn = new mysqli($servername, $username, $password, $database);
 
@@ -29,7 +29,7 @@ $_SESSION['user_id'] = $result->fetch_assoc()["id"];
 header("Location: gallery.html");
 exit();
 } else {
-// Если аутентификация не удалась, выведите сообщение об ошибке или верните пользователя на страницу входа
+// Если аутентификация не удалась, выводит сообщение об ошибке или возвращает пользователя на страницу входа
 echo "Неверные учетные данные. Пожалуйста, попробуйте снова.";
 }
 

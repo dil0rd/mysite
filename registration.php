@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$database = "site"; // Используйте корректное название вашей базы данных
+$database = "site";
 
 $conn = new mysqli($servername, $username, $password, $database);
 

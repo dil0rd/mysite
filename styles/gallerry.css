@@ -4,7 +4,7 @@ body {
   background: linear-gradient(45deg, white, white);
 }
 div#quad {
-  background: #000000;
+  background: #fff;
   font-size: 0;
   width: 60%;
   margin: 0 auto;
