@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Подключение к базе данных
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -9,31 +8,36 @@ $database = "site";
 
 $conn = new mysqli($servername, $username, $password, $database);
 
-// Проверка подключения
 if ($conn->connect_error) {
-die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-$email = $_POST["email"];
-$password = $_POST["password"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
 
-// Подготовка SQL-запроса и выполнение для проверки введенных данных в базе данных
-$sql = "SELECT id FROM users WHERE email='$email' AND password='$password'";
-$result = $conn->query($sql);
+    $sql = "SELECT id, password FROM users WHERE email='$email'";
+    $result = $conn->query($sql);
 
-// Проверка, найден ли пользователь с такими данными
-if ($result->num_rows > 0) {
-// Если аутентификация успешна, устанавливаем сессионную переменную и перенаправляем на страницу галереи
-$_SESSION['user_id'] = $result->fetch_assoc()["id"];
-header("Location: gallery.html");
-exit();
-} else {
-// Если аутентификация не удалась, выводит сообщение об ошибке или возвращает пользователя на страницу входа
-echo "Неверные учетные данные. Пожалуйста, попробуйте снова.";
+    if ($result) {
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $hashedPassword = $row["password"];
+
+            if (password_verify($password, $hashedPassword)) {
+                $_SESSION['user_id'] = $row["id"];
+                header("Location: gallery.html");
+                exit();
+            } else {
+                echo "Неверный пароль. Пожалуйста, попробуйте снова.";
+            }
+        } else {
+            echo "Пользователь с таким email не найден.";
+        }
+    } else {
+        echo "Ошибка запроса: " . $conn->error;
+    }
+
+    $conn->close();
 }
-
-$conn->close();
-}
-?>
 ?>

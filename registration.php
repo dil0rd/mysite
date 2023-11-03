@@ -18,13 +18,13 @@ $email = $_POST["email"];
 $password = $_POST["password"];
 $confirmPassword = $_POST["confirm_password"]; // Получаем значение подтверждения пароля
 
-// Проверяем, совпадают ли пароль и его подтверждение
+// Проверяю, совпадают ли пароль и его подтверждение
 if ($password !== $confirmPassword) {
 echo "Пароль и подтверждение пароля не совпадают";
 exit;
 }
 
-// Хеширование пароля (рекомендуется использовать более безопасные методы)
+// Хеширование пароля 
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 // Подготовка SQL-запроса и выполнение
