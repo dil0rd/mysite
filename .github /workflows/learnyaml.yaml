@@ -1,1 +1,23 @@
+---  # document start
+name: CICD-Actions
 
+on: 
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tests
+        uses: actions/checkout@v4
+      - name: Upload
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd /var/www/html
+            git pull https://github.com/Sviatosha/SiteCiCd.git master
+            sudo systemctl restart nginx
