@@ -1,23 +1,24 @@
----  # document start
-name: CICD-Actions
+name: Deploy to Server
 
-on: 
+on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Tests
-        uses: actions/checkout@v4
-      - name: Upload
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: |
-            cd /var/www/html
-            git pull https://github.com/Sviatosha/SiteCiCd.git master
-            sudo systemctl restart nginx
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.1
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Deploy to Server
+      run: |
+        scp -r * user@your-server:/path/to/your/website
+        ssh user@your-server "sudo systemctl restart nginx"
