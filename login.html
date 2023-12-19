@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles/login.css" />
+    <title>Вход/Регистрация</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header_inner">
+          <div class="logo">Вход/Регистрация</div>
+          <nav class="nav">
+            <a class="nav_link" href="index.html">Главная</a>
+            <a class="nav_link" href="about.html">Обо мне</a>
+            <a class="nav_link" href="education.html">Образование</a>
+            <!--<a class="nav_link" href="gallery.html">Галлерея</a>-->
+            <a class="nav_link" href="login.html">Войти</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="log-container">
+      <form class="login-form" action="login.php" method="post">
+        <input type="email" name="email" placeholder="Логин" required />
+        <input type="password" name="password" placeholder="Пароль" required />
+        <input type="submit" value="Войти" />
+      </form>
+
+      <div class="registration-form">
+        <h2>Регистрация</h2>
+        <form action="registration.php" method="post">
+          <input type="email" name="email" placeholder="Логин" required />
+          <input
+            type="password"
+            name="password"
+            placeholder="Пароль"
+            required
+          />
+          <input
+            type="password"
+            name="confirm_password"
+            placeholder="Повторите пароль"
+            required
+          />
+          <input type="submit" value="Зарегистрироваться" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
