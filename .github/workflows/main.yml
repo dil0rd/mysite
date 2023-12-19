@@ -18,6 +18,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /var/www/html
+            cd /github/workspace  # Используем /github/workspace вместо /var/www/html
             git pull https://github.com/dil0rd/mysite.git master
             sudo systemctl restart nginx
