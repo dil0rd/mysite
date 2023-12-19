@@ -1,25 +1,23 @@
-name: Deploy to Beget
+name: CICD-Actions
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Deploy to Beget
-        uses: appleboy/ssh-action@v2
+      - name: Upload
+        uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.BEGET_HOST }}
-          username: ${{ secrets.BEGET_USERNAME }}
-          password: ${{ secrets.BEGET_PASSWORD }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /path/to/your/website
-            git pull origin main
-            sudo service nginx restart
+            cd /var/www/html
+            git pull https://github.com/Sviatosha/SiteCiCd.git master
+            sudo systemctl restart nginx
