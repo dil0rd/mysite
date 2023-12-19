@@ -1,9 +1,9 @@
-# document start
+---  # document start
 name: CICD-Actions
 
 on: 
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   deploy:
@@ -14,10 +14,10 @@ jobs:
       - name: Upload
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.BEGET_HOST }}  # Используйте правильное имя переменной
+          host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd /var/www/html
-            git pull https://github.com/dil0rd/mysite.git main
+            git pull https://github.com/dil0rd/mysite.git master
             sudo systemctl restart nginx
