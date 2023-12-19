@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: Deploy to Beget
 
 on:
   push:
@@ -10,15 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.5.1
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-    - name: Deploy to Server
-      run: |
-        scp -r * user@your-server:/path/to/your/website
-        ssh user@your-server "sudo systemctl restart nginx"
+      - name: Deploy to Beget
+        uses: appleboy/ssh-action@v2
+        with:
+          host: ${{ secrets.BEGET_HOST }}
+          username: ${{ secrets.BEGET_USERNAME }}
+          password: ${{ secrets.BEGET_PASSWORD }}
+          script: |
+            cd /path/to/your/website
+            git pull origin main
+            sudo service nginx restart
