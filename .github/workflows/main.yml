@@ -1,4 +1,4 @@
-name: CI/CD
+name: Deploy to Production
 
 on:
   push:
@@ -6,26 +6,20 @@ on:
       - master
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Run checks
+    - name: Setup SSH keys
       run: |
-        # Проверка на отсутствие файлов с расширениями css, js в директории src
-        if [ -n "$(find ./src -name '*.css' -o -name '*.js')" ]; then
-          echo "Warning: CSS or JS files found in ./src directory"
-        fi
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
-        # Другие проверки могут быть добавлены здесь
-
-    - name: Build
+    - name: Deploy to production
       run: |
-        # Команды для сборки проекта
-
-    - name: Deploy
-      run: |
-        # Команды для деплоя проекта
+        ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 'cd /path/to/your/project && git pull origin master'
