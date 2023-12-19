@@ -20,4 +20,5 @@ jobs:
           script: |
             cd $GITHUB_WORKSPACE  # Используем переменную окружения GITHUB_WORKSPACE
             git pull https://:${{ secrets.GITHUB_TOKEN }}@github.com/dil0rd/mysite.git master
-            systemctl restart nginx
+            # Теперь выполните перезапуск службы nginx на самом сервере, а не внутри Docker-контейнера
+            sshpass -p ${{ secrets.SSH_PASSWORD }} ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 'sudo systemctl restart nginx'
