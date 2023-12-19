@@ -13,15 +13,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Setup SSH
-      run: |
-        mkdir -p ~/.ssh/
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -t rsa,dsa -H $SSH_HOST >> ~/.ssh/known_hosts
-        eval "$(ssh-agent -s)"
-        ssh-add ~/.ssh/id_rsa
-
     - name: Deploy to Beget
       run: |
-        sshpass -p "$SSH_PASSWORD" ssh $SSH_USERNAME@$SSH_HOST "cd /c/Users/user/mysite && git pull origin master"
+        sshpass -p ${{ secrets.SSH_PASSWORD }} ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "cd /c/Users/user/mysite && git pull origin master"
