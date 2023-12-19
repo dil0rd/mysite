@@ -18,5 +18,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            git pull https://github.com/dil0rd/mysite.git master
-            sudo systemctl restart nginx
+            cd /github/workspace
+            git pull https://${{ secrets.GITHUB_USERNAME }}:${{ secrets.GITHUB_PASSWORD }}@github.com/dil0rd/mysite.git master
+            systemctl restart nginx
