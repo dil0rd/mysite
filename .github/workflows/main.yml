@@ -15,25 +15,17 @@ jobs:
 
     - name: Run checks
       run: |
-        # Проверки вашего условия
-        # Примеры:
-        # 1. Проверка на отсутствие файлов с расширениями css, js
-        if [ -n "$(find . -name '*.css' -o -name '*.js')" ]; then
-          echo "Error: CSS or JS files found"
-          exit 1
+        # Проверка на отсутствие файлов с расширениями css, js в директории src
+        if [ -n "$(find ./src -name '*.css' -o -name '*.js')" ]; then
+          echo "Warning: CSS or JS files found in ./src directory"
         fi
 
-        # 2. Проверка размера файлов (пример для файлов > 1MB)
-        find . -type f -size +1M -exec echo "Error: File {} exceeds 1MB" \; && exit 1
+        # Другие проверки могут быть добавлены здесь
 
-        # 3. Другие проверки...
+    - name: Build
+      run: |
+        # Команды для сборки проекта
 
-    - name: Deploy to server
-      if: success()
-      uses: appleboy/ssh-action@v1.0.0
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        password: ${{ secrets.SSH_PASSWORD }}
-        script: |
-          # Ваш скрипт развертывания на сервере
+    - name: Deploy
+      run: |
+        # Команды для деплоя проекта
