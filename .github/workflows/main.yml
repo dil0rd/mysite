@@ -1,4 +1,4 @@
----  # document start
+# document start
 name: CICD-Actions
 
 on: 
@@ -14,7 +14,7 @@ jobs:
       - name: Upload
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.SSH_HOST }}
+          host: ${{ secrets.BEGET_HOST }}  # Используйте правильное имя переменной
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
