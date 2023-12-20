@@ -19,6 +19,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /c/Users/user/mysite
+            cd ${{ github.workspace }}/mysite
             git pull origin master
             # Дополнительные команды, если необходимо
