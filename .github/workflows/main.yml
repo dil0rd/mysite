@@ -13,9 +13,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Create SSH directory
-      run: mkdir -p ~/.ssh
-
     - name: Deploy to server
       run: |
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
