@@ -18,5 +18,4 @@ jobs:
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
         chmod 600 ~/.ssh/id_ed25519
-        ssh -i ~/.ssh/id_ed25519 user@DESKTOP-V12FFJS 'cd /c/Users/user/mysite && git pull origin master'
-
+        ssh -i ~/.ssh/id_ed25519 user@5.101.153.234 'cd /c/Users/user/mysite && git pull origin master'
