@@ -13,9 +13,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Deploy to server
+    - name: Set up SSH
       run: |
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
         chmod 600 ~/.ssh/id_ed25519
+        ssh-keyscan -t ed25519 5.101.153.234 >> ~/.ssh/known_hosts
+
+    - name: Deploy to server
+      run: |
         ssh -i ~/.ssh/id_ed25519 user@5.101.153.234 'cd /c/Users/user/mysite && git pull origin master'
