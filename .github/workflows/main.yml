@@ -19,5 +19,5 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd /var/www/html
-            git pull origin master
+            git pull https://github.com/dil0rd/mysite master
             # Дополнительные команды, если необходимо
