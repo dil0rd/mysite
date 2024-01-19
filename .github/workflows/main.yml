@@ -20,4 +20,5 @@ jobs:
           script: |
             cd /var/www/html
             git pull https://github.com/dil0rd/mysite master
+            sudo systemctl restart nginx
             # Дополнительные команды, если необходимо
